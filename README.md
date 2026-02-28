@@ -28,6 +28,10 @@ Without sorting analyze the order of elements
 Define order as average or worst case
 
 ## Part C: Documentation
+
+### Choosing insertion sort vs selection sort
+The best case (sorted array) for an insertion sort as described in our book is a time complexity of O(n), coming out ahead of selection sort which has an O(n^2) for all cases. Selection sort does not consider order, its operations remain the same regardless of the current order of the elements, whereas insertion sort become a heftier operation the more disordered an array is. While they share the same worst case time complexity in a general sense, selection sort always performs n(n-1)/2 comparisons, insertions only shifts elements until theyre in the right place making it more adaptive, which wold lead to reason, since it doesnt scan the entire remaining array every operation, that it is more efficient at an average case scenario than selection sort. We can see in the worst case (descending array), insertion sort would have to repeatedly shift each element through the entire sorted portion of the array, leading to a quadratic shift count. Selection sort, while still quadratic, only performs one swap per pass, behaving more consistently when the array leans towards the worst case.
+
 Detail All the above on my readme in this section, can include code snippets above, but written explanation should be here.
 The threshold definition you used to differentiate between best, average, and worst cases.
 The reasoning behind your assumption.
