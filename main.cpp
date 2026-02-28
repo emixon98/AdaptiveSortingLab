@@ -19,7 +19,7 @@ classification arrType(vector<int>& arr){
         if (arr[i] > arr[i+1]) badCases++;
     }
 
-    if (badCases == 49) return WORST;
+    if (badCases == 49) return WORST; //do I want to change this to make it more consistent for our "in between" cases
     if(badCases == 0) return BEST;
     return AVG;
 }
