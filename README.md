@@ -3,37 +3,99 @@ Adaptive Sorting Lab CISC187
 
 ## Part A: Adaptive Sorting Selection
 ### Task 1a
-Create an array of 50 integers. Simple
+```cpp
+static const int N = 50;
+vector<int> arr(N);
+```
 ### Task 2a
-Implement selection and insertion sort algorithms
+```cpp
+void selectionSort(vector<int>& arr){
+    for(int i =0; i < N-1; i++){
+        int index = i;
+        for (int j = i+1; j < N; j++){
+            if(arr[j] < arr[index]) index = j;
+        }
+        swap(arr[i], arr[index]);
+    }
+}
+
+void insertionSort(vector<int>& arr) {
+    for (int i = 1; i < N; i++){
+        int checkVal = arr[i];
+        int j = i - 1;
+        while (j>=0){
+            if(arr[j] > checkVal){
+                arr[j+1] = arr[j];
+                j--;
+            } else break;
+        }
+        arr[j+1] = checkVal;
+    }
+}
+```
 ### Task 3a
 Determine which scenario is presented (best, average, or worst case) clearly define this
-Can count pairs, two indexes at a time, and see if the left index is smaller or larger than the right, if larger than it is out of order and we can count it as a bad match, a certain amount of bad matches is classified as a worst case, best case, or avg case. Cant compare in a say binary search pattern because that requires the array to be sorted already, so by making pairs I can sort of supersede this and compare two indexes at a time in ascending order.
+```cpp
+classification arrType(vector<int>& arr){
+    int badCases = 0;
+    //Check each element and the element to its right, if it is greater than we have an out of order pair
+    //and hence a bad case.
+
+    for(int i =0; i < N-1; i++){
+        if (arr[i] > arr[i+1]) badCases++;
+    }
+
+    if (badCases == 49) return WORST; //can change this to make it more consistent for our "in between" cases
+    if(badCases == 0) return BEST;
+    return AVG;
+}
+```
+
+The approach I decided to take was to make an enum that classifies the array type. My first thought was a binary appraoch, comparing two elements at a time. With this application I can check if my arr[i] value is > arr{i+1]. If so, it is out of order, and hence a "bad case", if I go through the entire array doing this and have no bad cases, then the array is ordered. I felt this was a clean way to identify my arrays if using an integer vector because it 1) is a simple for loop and 2) allows me to change the definition of a good or bad case later on. For example, I chose in a later part of the assignment to make best case truly equal to 0 bad cases, in which case selection sort would occur. However, we can consider that insertion sort performs worse the more shifts it has to do selection sort is always the same, due to this I could classify a "close to worse" case, being maybe 40 bad cases or more, allowing flexibility of my choice/optimization.
+
 ### Task 4a
 Choose appropriate sorting algorithm
-If the array is already sorted in ascending order (or nearly sorted based on your defined threshold), your program should choose Insertion Sort, since Insertion Sort runs in linear time O(n) in the best case
+If the array is already sorted in ascending order (or nearly sorted based on your defined threshold), your program should choose Insertion Sort, since Insertion Sort runs in linear time O(n) in the best case.
 
-If the array is in strictly descending order and the goal is to sort in ascending order, your program may decide to use Selection Sort, assuming under your defined threshold that it performs more consistently than Insertion Sort in this scenario.
+```cpp
+void chooseSort(classification a, vector<int>& arr){
+    if (a == WORST){
+        cout << "This array is a worse case, choosing selectionSort: \n";
+        selectionSort(arr);
+    } else if( a == BEST) {
+        cout << "This array is a best case, choosing insertionSort: \n";
+        insertionSort(arr);
+    } else if( a == BEST) {
+        cout << "This array is an average case, choosing insertionSort: \n";
+        insertionSort(arr);
+    }
+}
+
+```
+
+If the array is in strictly descending order and the goal is to sort in ascending order, your program may decide to use Selection Sort (under your defined threshold), considering that it performs more consistently than Insertion Sort in this scenario.
 
 ## Part B: Case Classificatation Without Sorting
 
 ### Task 1b
-User inputs 50 integers
-
+```cpp
+    cout << "Please enter 50 value for the array: ";
+    for (int i =0; i < N; i++) cin >> arr[i]; 
+```
 ### Task 2b
-Without sorting analyze the order of elements
+Without sorting analyze the order of elements:
+
+The function in 3a is able to classify and analyze the user entered elements.
 
 ### Task 3b
 
-Define order as average or worst case
+Define order as average or worst case:
+
+I added cout statements in the function from 4a to be able to clearly display and define what case the array is, since it flows smoothly with the program, and it was only a few more lines of code
+I implemented the sorting as well for demonstration. It will be commented out after recording my video and for the official submission.
 
 ## Part C: Documentation
 
 ### Choosing insertion sort vs selection sort
-The best case (sorted array) for an insertion sort as described in our book is a time complexity of O(n), coming out ahead of selection sort which has an O(n^2) for all cases. Selection sort does not consider order, its operations remain the same regardless of the current order of the elements, whereas insertion sort become a heftier operation the more disordered an array is. While they share the same worst case time complexity in a general sense, selection sort always performs n(n-1)/2 comparisons, insertions only shifts elements until theyre in the right place making it more adaptive, which wold lead to reason, since it doesnt scan the entire remaining array every operation, that it is more efficient at an average case scenario than selection sort. We can see in the worst case (descending array), insertion sort would have to repeatedly shift each element through the entire sorted portion of the array, leading to a quadratic shift count. Selection sort, while still quadratic, only performs one swap per pass, behaving more consistently when the array leans towards the worst case.
 
-Detail All the above on my readme in this section, can include code snippets above, but written explanation should be here.
-The threshold definition you used to differentiate between best, average, and worst cases.
-The reasoning behind your assumption.
-Why your program selects one sorting algorithm over the other in specific scenarios.
-A brief discussion of how input order affects the time complexity of Selection Sort and Insertion Sort.
+The best case (sorted array) for an insertion sort as described in our book is a time complexity of O(n), coming out ahead of selection sort which has an O(n^2) for all cases. Selection sort does not consider order, its operations remain the same regardless of the current order of the elements, whereas insertion sort become a heftier operation the more disordered an array is. While they share the same worst case time complexity in a general sense, selection sort always performs n(n-1)/2 comparisons, insertions only shifts elements until they're in the right place making it more adaptive. This would lead to reason, since it doesn't scan the entire remaining array every operation, that it is more efficient at an average case scenario than selection sort. We can see in the worst case (descending array), insertion sort would have to repeatedly shift each element through the entire sorted portion of the array, leading to a quadratic shift count. Selection sort, while still quadratic, only performs one swap per pass, behaving more consistently when the array leans towards the worst case and therefore preferable.
