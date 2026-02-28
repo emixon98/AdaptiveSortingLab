@@ -8,6 +8,7 @@ Create an array of 50 integers. Simple
 Implement selection and insertion sort algorithms
 ### Task 3a
 Determine which scenario is presented (best, average, or worst case) clearly define this
+Can count pairs, two indexes at a time, and see if the left index is smaller or larger than the right, if larger than it is out of order and we can count it as a bad match, a certain amount of bad matches is classified as a worst case, best case, or avg case. Cant compare in a say binary search pattern because that requires the array to be sorted already, so by making pairs I can sort of supersede this and compare two indexes at a time in ascending order.
 ### Task 4a
 Choose appropriate sorting algorithm
 If the array is already sorted in ascending order (or nearly sorted based on your defined threshold), your program should choose Insertion Sort, since Insertion Sort runs in linear time O(n) in the best case
