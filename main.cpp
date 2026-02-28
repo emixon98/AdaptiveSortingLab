@@ -23,17 +23,34 @@ classification arrType(vector<int>& arr){
     if(badCases == 0) return BEST;
     return AVG;
 }
-
-void selectionSort(){
-
+//pass in address because we actually want to alter the array into order instead of producing a new one
+void selectionSort(vector<int>& arr){
+    for(int i =0; i < N-1; i++){
+        int index = i;
+        for (int j = i+1; j < N; j++){
+            if(arr[j] < arr[index]) index = j;
+        }
+        swap(arr[i], arr[index]);
+    }
 }
 
-void insertionSort(){
-
+void insertionSort(vector<int>& arr) {
+    for (int i = 1; i < N; i++){
+        int checkVal = arr[i];
+        int j = i - 1;
+        while (j>=0){
+            if(arr[j] > checkVal){
+                arr[j+1] = arr[j];
+                j--;
+            } else break;
+        }
+        arr[j+1] = checkVal;
+    }
 }
 
 int main() {
-
+    vector<int> arr[N];
+    
 }
 
 //I personally want strict best and worst case scenarios for both clarity and to maximize efficiency when an array
