@@ -49,8 +49,26 @@ void insertionSort(vector<int>& arr) {
 }
 
 int main() {
-    vector<int> arr[N];
+    vector<int> arr(N);
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dist(0, 999);
+
+    //random/user array dont forget to make a cin arr too
+    vector<int> avgArr(N);
+    for (int i =0; i<N; i++) avgArr[i] = dist(gen);
+
+    vector<int> bestCaseArr(N);
+    for (int i = 0; i < N; i++) bestCaseArr[i] = i +1;
     
+    vector<int> worstArr(N);
+    for (int i = 0; i < N; i++) worstArr[i] = 50 - i;
+
+    cout << "Please enter 50 value for the array: ";
+    for (int i =0; i < N; i++) cin >> arr[i]; //will just make a copy paste of 50 integers for this one, dont want to over do it since have avg with rands
+    
+
 }
 
 //I personally want strict best and worst case scenarios for both clarity and to maximize efficiency when an array
