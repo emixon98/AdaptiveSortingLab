@@ -48,6 +48,20 @@ void insertionSort(vector<int>& arr) {
     }
 }
 
+//choose algorithm to use based on classification type
+void chooseSort(classification a, vector<int>& arr){
+    if (a == WORST){
+        selectionSort(arr);
+    } else {
+        insertionSort(arr);
+    }
+}
+
+void printArr(vector<int>& arr){
+    for(int i : arr) cout << i << " ";
+    cout << "\n\n";
+}
+
 int main() {
     vector<int> arr(N);
 
@@ -55,7 +69,12 @@ int main() {
     mt19937 gen(rd());
     uniform_int_distribution<int> dist(0, 999);
 
-    //random/user array dont forget to make a cin arr too
+    //will just make a copy paste of 50 integers for this one, 
+    //dont want to over do it since have avg with rands
+    //cout << "Please enter 50 value for the array: ";
+    //for (int i =0; i < N; i++) cin >> arr[i]; 
+
+    //random/user array
     vector<int> avgArr(N);
     for (int i =0; i<N; i++) avgArr[i] = dist(gen);
 
@@ -64,11 +83,32 @@ int main() {
     
     vector<int> worstArr(N);
     for (int i = 0; i < N; i++) worstArr[i] = 50 - i;
-
-    cout << "Please enter 50 value for the array: ";
-    for (int i =0; i < N; i++) cin >> arr[i]; //will just make a copy paste of 50 integers for this one, dont want to over do it since have avg with rands
     
+    //presorted array cout so I can see the sort's actions for verification
+    cout << "The generated random array is: \n";
+    for (int i=0; i<N; i++){
+        cout << avgArr[i] << " ";
+    }
+    cout << "\n\n";
 
+    classification a = arrType(avgArr);
+    classification b = arrType(bestCaseArr); 
+    classification c = arrType(worstArr);
+    //classification d = arrType(arr);
+
+    chooseSort(a, avgArr); 
+    chooseSort(b, bestCaseArr); 
+    chooseSort(c, worstArr); 
+    //chooseSort(d, arr); 
+    cout << "The sorted average/random array is now: \n\n";
+    printArr(avgArr); // Or can comment this and class a if not doing random inputs
+    cout << "The sorted best case array is now: \n\n";
+    printArr(bestCaseArr);
+    cout << "The sorted worst case array is now: \n\n";
+    printArr(worstArr);
+    //printArr(arr); //can comment this and classification d out if not doing use inputted
+
+    return 0;
 }
 
 //I personally want strict best and worst case scenarios for both clarity and to maximize efficiency when an array
