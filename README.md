@@ -95,6 +95,9 @@ I added cout statements in the function from 4a to be able to clearly display an
 I implemented the sorting as well for demonstration. It will be commented out after recording my video and for the official submission.
 
 ## Part C: Documentation
+### Threshold definition
+
+See part 3a.
 
 ### Choosing insertion sort vs selection sort
 
