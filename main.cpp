@@ -11,7 +11,7 @@ classification arrType(vector<int>& arr){
     int badCases = 0;
     //Check each element and the element to its right, if it is greater than we have an out of order pair
     //and hence a bad case.
-
+    //the check here is sort of like how bubble sort checks two elements and proceeds to the next two if in order
     for(int i =0; i < N-1; i++){
         if (arr[i] > arr[i+1]) badCases++;
     }
@@ -54,7 +54,7 @@ void chooseSort(classification a, vector<int>& arr){
     } else if( a == BEST) {
         cout << "This array is a best case, choosing insertionSort: \n";
         insertionSort(arr);
-    } else if( a == BEST) {
+    } else if( a == AVG) {
         cout << "This array is an average case, choosing insertionSort: \n";
         insertionSort(arr);
     }
@@ -99,14 +99,16 @@ int main() {
     classification c = arrType(worstArr);
     //classification d = arrType(arr);
 
-    chooseSort(a, avgArr); 
-    chooseSort(b, bestCaseArr); 
-    chooseSort(c, worstArr); 
-    //chooseSort(d, arr); 
+    chooseSort(a, avgArr);     
     cout << "The sorted average/random array is now: \n\n";
     printArr(avgArr); // Or can comment this and class a if not doing random inputs
+    chooseSort(b, bestCaseArr);     
     cout << "The sorted best case array is now: \n\n";
     printArr(bestCaseArr);
+    chooseSort(c, worstArr); 
+    //chooseSort(d, arr); 
+
+
     cout << "The sorted worst case array is now: \n\n";
     printArr(worstArr);
     //printArr(arr); //can comment this and classification d out if not doing use inputted
